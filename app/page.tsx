@@ -104,7 +104,7 @@ export default function HomePage() {
                 >
                   <Link href="/contact">
                     <Mail className="mr-2 h-5 w-5" />
-                    Let's Connect
+                    Let&apos;s Connect
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
@@ -262,7 +262,7 @@ export default function HomePage() {
               Ready to Strengthen Your Cyber Defenses?
             </h2>
             <p className="text-xl text-steel-300 mb-8 max-w-2xl mx-auto">
-              Let's discuss how 15 years of cybersecurity expertise can help protect your organization's critical infrastructure.
+              Let&apos;s discuss how 15 years of cybersecurity expertise can help protect your organization&apos;s critical infrastructure.
             </p>
             <Button 
               size="lg" 

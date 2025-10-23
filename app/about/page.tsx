@@ -78,21 +78,21 @@ export default function AboutPage() {
               <h2 className="text-3xl font-serif font-bold text-steel-900">My Story</h2>
               <div className="accent-bar" />
               
-              <p className="text-lg text-steel-700 leading-relaxed">
-                With over 15 years of experience in cybersecurity, I've dedicated my career to protecting organizations from evolving cyber threats through strategic defense planning, incident response, and secure infrastructure design.
-              </p>
-              
-              <p className="text-lg text-steel-700 leading-relaxed">
-                Currently serving as a Senior Cybersecurity Director in the United States Air Force, I lead division-wide cyber defense initiatives, manage critical incident responses, and ensure compliance with NIST and AFI standards across multi-million-dollar network infrastructures.
-              </p>
-              
-              <p className="text-lg text-steel-700 leading-relaxed">
-                My expertise spans Digital Forensics & Incident Response (DFIR), malware analysis, cloud security architecture, and AI-augmented security automation. I'm passionate about leveraging cutting-edge technology to stay ahead of adversaries and build resilient defense systems.
-              </p>
+            <p className="text-lg text-steel-700 leading-relaxed">
+              With over 15 years of experience in cybersecurity, I&apos;ve dedicated my career to protecting organizations from evolving cyber threats through strategic defense planning, incident response, and secure infrastructure design.
+            </p>
+            
+            <p className="text-lg text-steel-700 leading-relaxed">
+              Currently serving as a Senior Cybersecurity Director in the United States Air Force, I lead division-wide cyber defense initiatives, manage critical incident responses, and ensure compliance with NIST and AFI standards across multi-million-dollar network infrastructures.
+            </p>
+            
+            <p className="text-lg text-steel-700 leading-relaxed">
+              My expertise spans Digital Forensics & Incident Response (DFIR), malware analysis, cloud security architecture, and AI-augmented security automation. I&apos;m passionate about leveraging cutting-edge technology to stay ahead of adversaries and build resilient defense systems.
+            </p>
 
-              <p className="text-lg text-steel-700 leading-relaxed">
-                Beyond traditional cybersecurity, I'm actively developing AI-powered tools including RAG agents, N8N automation workflows, and MCP servers to enhance operational efficiency and threat detection capabilities.
-              </p>
+            <p className="text-lg text-steel-700 leading-relaxed">
+              Beyond traditional cybersecurity, I&apos;m actively developing AI-powered tools including RAG agents, N8N automation workflows, and MCP servers to enhance operational efficiency and threat detection capabilities.
+            </p>
             </motion.div>
 
             {/* Certifications Card */}
@@ -202,10 +202,10 @@ export default function AboutPage() {
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-steel-900 mb-6">
-              Let's Work Together
+              Let&apos;s Work Together
             </h2>
             <p className="text-xl text-steel-600 mb-8 max-w-2xl mx-auto">
-              Interested in collaborating or discussing cybersecurity strategies? I'd love to connect.
+              Interested in collaborating or discussing cybersecurity strategies? I&apos;d love to connect.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-accent-600 hover:bg-accent-700 text-white" asChild>

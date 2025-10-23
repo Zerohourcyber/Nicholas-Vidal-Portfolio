@@ -211,7 +211,7 @@ export default function ProjectsPage() {
               Interested in Collaborating?
             </h2>
             <p className="text-xl text-steel-300 mb-8 max-w-2xl mx-auto">
-              Let's discuss how we can work together on innovative cybersecurity solutions
+              Let&apos;s discuss how we can work together on innovative cybersecurity solutions
             </p>
             <Button 
               size="lg" 
