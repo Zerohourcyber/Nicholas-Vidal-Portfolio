@@ -163,7 +163,7 @@ export default function HomePage() {
               transition={{ delay: 0.5, duration: 1, ease: "easeOut" }}
               className="relative hidden lg:flex justify-center items-center"
             >
-              <div className="relative w-[450px] h-[450px]">
+              <div className="relative w-[350px] h-[350px]">
                 {/* Animated Glow Rings - Blue to Red Pulse */}
                 <motion.div
                   animate={{

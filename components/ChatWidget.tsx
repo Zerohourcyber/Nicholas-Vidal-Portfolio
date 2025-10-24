@@ -61,7 +61,7 @@ export default function ChatWidget() {
       console.log("📤 Sending to N8N:", payload);
 
       const response = await fetch(
-        "https://n8n.roomform.net/webhook/a8e3879e-f6fa-4211-8f56-85a2e5832d40/chat",
+        "https://n8n.roomform.net/webhook/08ae962a-35c9-4e42-a246-25b13c848be4/chat",
         {
           method: "POST",
           headers: {
