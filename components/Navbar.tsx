@@ -32,8 +32,8 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-steel-200/50 transition-all duration-300 ${
-        isScrolled ? "shadow-card" : ""
+      className={`fixed top-0 left-0 right-0 z-50 glass-dark border-b border-neon-cyan/10 transition-all duration-300 ${
+        isScrolled ? "shadow-card-dark border-neon-cyan/20" : ""
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -42,10 +42,10 @@ export default function Navbar() {
             href="/"
             className="group flex items-center gap-2"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center shadow-sm group-hover:shadow-glow-accent transition-all">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-neon-cyan to-neon-blue flex items-center justify-center shadow-glow-cyan group-hover:shadow-neon-cyan transition-all">
               <Sparkles className="h-5 w-5 text-white" />
             </div>
-            <span className="text-xl font-serif font-bold text-steel-900 group-hover:text-accent-600 transition-colors">
+            <span className="text-xl font-serif font-bold text-white group-hover:text-neon-cyan transition-colors">
               Nicholas Vidal
             </span>
           </Link>
@@ -56,14 +56,14 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="relative group text-steel-600 hover:text-steel-900 font-medium transition-colors duration-300"
+                className="relative group text-slate-300 hover:text-white font-medium transition-colors duration-300"
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-accent-600 group-hover:w-full transition-all duration-300 rounded-full" />
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-neon-cyan to-neon-red group-hover:w-full transition-all duration-300 rounded-full shadow-glow-cyan" />
               </Link>
             ))}
 
-            <Button size="sm" className="bg-accent-600 hover:bg-accent-700 text-white shadow-sm hover:shadow-glow-accent" asChild>
+            <Button size="sm" className="btn-neon-cyan text-white font-bold" asChild>
               <a href="/resume.pdf" download>
                 <Download className="mr-2 h-4 w-4" />
                 Resume
@@ -73,14 +73,14 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-steel-100 transition-colors"
+            className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-neon-cyan/10 transition-colors border border-neon-cyan/20"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? (
-              <X className="h-6 w-6 text-steel-700" />
+              <X className="h-6 w-6 text-neon-cyan" />
             ) : (
-              <Menu className="h-6 w-6 text-steel-700" />
+              <Menu className="h-6 w-6 text-neon-cyan" />
             )}
           </button>
         </div>
@@ -93,7 +93,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-cyber-900/95 backdrop-blur-lg border-t border-steel-700/50 shadow-depth overflow-hidden"
+            className="md:hidden glass-dark border-t border-neon-cyan/20 shadow-card-dark overflow-hidden"
           >
             <div className="px-4 pt-4 pb-6 space-y-2">
               {navLinks.map((link, index) => (
@@ -105,7 +105,7 @@ export default function Navbar() {
                 >
                   <Link
                     href={link.href}
-                    className="block px-4 py-3 text-steel-100 hover:text-accent-400 hover:bg-steel-800/50 rounded-xl transition-all font-medium"
+                    className="block px-4 py-3 text-slate-300 hover:text-neon-cyan hover:bg-neon-cyan/10 rounded-xl transition-all font-medium border border-transparent hover:border-neon-cyan/30"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.label}
@@ -118,7 +118,7 @@ export default function Navbar() {
                 transition={{ delay: navLinks.length * 0.1 }}
                 className="pt-4"
               >
-                <Button size="sm" asChild className="w-full bg-accent-600 hover:bg-accent-700 text-white">
+                <Button size="sm" asChild className="w-full btn-neon-red text-white font-bold">
                   <a href="/resume.pdf" download>
                     <Download className="mr-2 h-4 w-4" />
                     Download Resume

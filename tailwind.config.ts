@@ -9,7 +9,27 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Midjourney-inspired professional palette
+        // Cinematic AI Genie Dark Palette
+        space: {
+          50: "#1a1a2e",
+          100: "#16161a",
+          200: "#0f0f13",
+          300: "#0a0a0f",
+          400: "#07070b",
+          500: "#050508",
+          600: "#030305",
+          700: "#020203",
+          800: "#010101",
+          900: "#000000",
+        },
+        neon: {
+          cyan: "#00d9ff",
+          blue: "#0ea5e9",
+          purple: "#a855f7",
+          pink: "#ec4899",
+          red: "#ff0055",
+          crimson: "#e11d48",
+        },
         cyber: {
           50: "#E8F2F7",
           100: "#C5DEF0",
@@ -82,12 +102,49 @@ const config: Config = {
         "glow-accent": "0 0 40px rgba(255, 184, 0, 0.3), 0 0 80px rgba(255, 184, 0, 0.15)",
         "glow-blue": "0 0 40px rgba(51, 155, 255, 0.3), 0 0 80px rgba(51, 155, 255, 0.15)",
         depth: "0 20px 70px -10px rgba(0, 0, 0, 0.3), 0 10px 40px -5px rgba(0, 0, 0, 0.2)",
-        "glass": "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
+        glass: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
+        // Cinematic Genie Shadows
+        "neon-cyan": "0 0 20px rgba(0, 217, 255, 0.5), 0 0 40px rgba(0, 217, 255, 0.3), 0 0 60px rgba(0, 217, 255, 0.1)",
+        "neon-red": "0 0 20px rgba(255, 0, 85, 0.5), 0 0 40px rgba(255, 0, 85, 0.3), 0 0 60px rgba(255, 0, 85, 0.1)",
+        "neon-blue": "0 0 20px rgba(14, 165, 233, 0.5), 0 0 40px rgba(14, 165, 233, 0.3)",
+        "glow-cyan": "0 0 30px rgba(0, 217, 255, 0.4), 0 0 60px rgba(0, 217, 255, 0.2)",
+        "glow-red": "0 0 30px rgba(255, 0, 85, 0.4), 0 0 60px rgba(255, 0, 85, 0.2)",
+        "card-dark": "0 8px 32px rgba(0, 0, 0, 0.6), 0 4px 16px rgba(0, 217, 255, 0.1)",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "gradient-mesh": "radial-gradient(at 20% 30%, rgba(51, 155, 255, 0.15) 0px, transparent 50%), radial-gradient(at 80% 20%, rgba(255, 184, 0, 0.15) 0px, transparent 50%), radial-gradient(at 50% 80%, rgba(30, 116, 186, 0.12) 0px, transparent 50%)",
+        "tech-grid": "linear-gradient(rgba(0, 217, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 217, 255, 0.03) 1px, transparent 1px)",
+        "genie-glow": "radial-gradient(circle at center, rgba(0, 217, 255, 0.2) 0%, rgba(255, 0, 85, 0.2) 50%, transparent 70%)",
+      },
+      backgroundSize: {
+        "grid": "50px 50px",
+      },
+      animation: {
+        "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "glow-pulse": "glow-pulse 3s ease-in-out infinite",
+        "float": "float 6s ease-in-out infinite",
+        "scan": "scan 8s linear infinite",
+        "shimmer": "shimmer 2s linear infinite",
+      },
+      keyframes: {
+        "glow-pulse": {
+          "0%, 100%": { boxShadow: "0 0 20px rgba(0, 217, 255, 0.5), 0 0 40px rgba(0, 217, 255, 0.3)" },
+          "50%": { boxShadow: "0 0 30px rgba(255, 0, 85, 0.6), 0 0 60px rgba(255, 0, 85, 0.4)" },
+        },
+        "float": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
+        "scan": {
+          "0%": { transform: "translateY(-100%)" },
+          "100%": { transform: "translateY(100%)" },
+        },
+        "shimmer": {
+          "0%": { backgroundPosition: "-1000px 0" },
+          "100%": { backgroundPosition: "1000px 0" },
+        },
       },
       backdropBlur: {
         xs: "2px",
@@ -98,4 +155,3 @@ const config: Config = {
 };
 
 export default config;
-

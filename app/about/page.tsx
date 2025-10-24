@@ -1,98 +1,160 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Award, BookOpen, Code, Rocket, CheckCircle2 } from "lucide-react";
-import SectionHeader from "@/components/SectionHeader";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-
-const skills = [
-  {
-    category: "Cybersecurity Core",
-    icon: Award,
-    items: ["Digital Forensics", "Cloud Security", "Risk Mitigation", "Threat Hunting & Analysis", "Vulnerability Management", "Complex Problem Solving"],
-  },
-  {
-    category: "Technical Skills",
-    icon: Code,
-    items: ["Nmap", "OpenVAS", "SIEM (Wazuh, Grafana)", "Proxmox", "pfSense", "Docker", "Terraform", "GitHub Actions CI/CD", "N8N Workflows"],
-  },
-  {
-    category: "AI & Automation",
-    icon: Rocket,
-    items: ["Ollama + Mistral LLM", "LangChain + CrewAI", "RAG Agents", "N8N Automation", "MCP Servers", "AI Agents for Security", "YAML/IaC Config Auditing"],
-  },
-  {
-    category: "Leadership & Compliance",
-    icon: BookOpen,
-    items: ["Cyber Incident Management", "NIST SP 800-53/800-37", "RMF & FedRAMP Frameworks", "Strategic Planning", "Cross-functional Team Leadership"],
-  },
-];
+import { Award, Shield, Brain, Cloud, Code, Lock, Zap, Database } from "lucide-react";
 
 const certifications = [
-  "CISSP - Certified Information Systems Security Professional (Expected 3/2026)",
   "CompTIA Security+",
-  "CompTIA A+",
+  "CISSP (Expected 3/2026)",
+  "A+",
+];
+
+const skillCategories = [
+  {
+    title: "Digital Forensics & Incident Response",
+    icon: Shield,
+    skills: [
+      "Volatility Framework",
+      "FTK / EnCase",
+      "Log Analysis",
+      "Malware Triage & Reverse Engineering",
+      "Network Forensics (Wireshark, Zeek)",
+      "Memory Forensics",
+    ],
+  },
+  {
+    title: "Cloud & Infrastructure Security",
+    icon: Cloud,
+    skills: [
+      "AWS (EC2, S3, IAM, VPC, GuardDuty)",
+      "Azure (Active Directory, Sentinel)",
+      "GCP (Compute, IAM, Security Command Center)",
+      "Infrastructure as Code (Terraform, Ansible)",
+      "Container Security (Docker, Kubernetes)",
+    ],
+  },
+  {
+    title: "Security Operations & Tools",
+    icon: Lock,
+    skills: [
+      "SIEM (Splunk, Wazuh, ELK)",
+      "EDR/XDR Solutions",
+      "IDS/IPS (Snort, Suricata)",
+      "Vulnerability Management (Nessus, Qualys)",
+      "Penetration Testing (Metasploit, Burp Suite)",
+    ],
+  },
+  {
+    title: "AI & Automation",
+    icon: Brain,
+    skills: [
+      "RAG Agents",
+      "N8N Automation",
+      "MCP Servers",
+      "Python Scripting",
+      "PowerShell",
+      "Bash/Shell Scripting",
+    ],
+  },
+  {
+    title: "Programming & Development",
+    icon: Code,
+    skills: [
+      "Python (Security Automation)",
+      "JavaScript / TypeScript",
+      "Next.js / React",
+      "SQL / NoSQL Databases",
+      "API Development",
+    ],
+  },
+  {
+    title: "Technical Skills",
+    icon: Database,
+    skills: [
+      "Network Architecture & Design",
+      "Active Directory Administration",
+      "Virtualization (Proxmox, VMware, Hyper-V)",
+      "N8N Workflows",
+      "CI/CD Pipelines",
+    ],
+  },
 ];
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen">
-      {/* Hero Banner */}
-      <section className="relative hero-gradient pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="orb orb-blue w-[500px] h-[500px] top-[-10%] left-[10%]" style={{ animationDelay: '3s' }} />
-          <div className="orb orb-gold w-[400px] h-[400px] bottom-[10%] right-[10%]" style={{ animationDelay: '8s' }} />
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        {/* Cosmic Background Video */}
+        <div className="absolute inset-0 w-full h-full">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="/u5229825193_Abstract_luminous_spiral_of_light_and_darkness_gl_25541650-9ece-423d-9efa-828ead8d5510_0.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-space-900/70 via-space-900/50 to-space-900/90" />
         </div>
         
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="orb-cyan w-[500px] h-[500px] top-[-10%] left-[10%] opacity-20" style={{ animationDelay: '3s' }} />
+          <div className="orb-red w-[400px] h-[400px] bottom-[10%] right-[10%] opacity-20" style={{ animationDelay: '8s' }} />
+        </div>
+        
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6">
-              About <span className="text-gradient">Nicholas James Vidal</span>
+            <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6 text-white">
+              About <span className="text-gradient-neon">Nicholas James Vidal</span>
             </h1>
-            <p className="text-xl text-steel-600 leading-relaxed mb-6">
+            <p className="text-xl text-slate-300 leading-relaxed mb-6">
               15 years leading cyber defense strategy, incident response, and secure infrastructure design
             </p>
-            <div className="accent-bar mx-auto" />
+            <div className="accent-bar-neon mx-auto" />
           </motion.div>
         </div>
       </section>
 
       {/* Biography & Certifications Section */}
-      <section className="section-pro bg-white">
+      <section className="section-cinematic relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Biography */}
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6 }}
               className="space-y-6"
             >
-              <h2 className="text-3xl font-serif font-bold text-steel-900">My Story</h2>
-              <div className="accent-bar" />
+              <h2 className="text-3xl font-serif font-bold text-white flex items-center gap-3">
+                <Zap className="h-8 w-8 text-neon-cyan" />
+                My Story
+              </h2>
+              <div className="accent-bar-neon" />
               
-            <p className="text-lg text-steel-700 leading-relaxed">
-              With over 15 years of experience in cybersecurity, I&apos;ve dedicated my career to protecting organizations from evolving cyber threats through strategic defense planning, incident response, and secure infrastructure design.
-            </p>
-            
-            <p className="text-lg text-steel-700 leading-relaxed">
-              Currently serving as a Senior Cybersecurity Director in the United States Air Force, I lead division-wide cyber defense initiatives, manage critical incident responses, and ensure compliance with NIST and AFI standards across multi-million-dollar network infrastructures.
-            </p>
-            
-            <p className="text-lg text-steel-700 leading-relaxed">
-              My expertise spans Digital Forensics & Incident Response (DFIR), malware analysis, cloud security architecture, and AI-augmented security automation. I&apos;m passionate about leveraging cutting-edge technology to stay ahead of adversaries and build resilient defense systems.
-            </p>
+              <p className="text-lg text-slate-300 leading-relaxed">
+                With over 15 years of experience in cybersecurity, I&apos;ve dedicated my career to protecting organizations from evolving cyber threats through strategic defense planning, incident response, and secure infrastructure design.
+              </p>
+              
+              <p className="text-lg text-slate-300 leading-relaxed">
+                Currently serving as a Senior Cybersecurity Director in the United States Air Force, I lead division-wide cyber defense initiatives, manage critical incident responses, and ensure compliance with NIST and AFI standards across multi-million-dollar network infrastructures.
+              </p>
+              
+              <p className="text-lg text-slate-300 leading-relaxed">
+                My expertise spans Digital Forensics & Incident Response (DFIR), malware analysis, cloud security architecture, and AI-augmented security automation. I&apos;m passionate about leveraging cutting-edge technology to stay ahead of adversaries and build resilient defense systems.
+              </p>
 
-            <p className="text-lg text-steel-700 leading-relaxed">
-              Beyond traditional cybersecurity, I&apos;m actively developing AI-powered tools including RAG agents, N8N automation workflows, and MCP servers to enhance operational efficiency and threat detection capabilities.
-            </p>
+              <p className="text-lg text-slate-300 leading-relaxed">
+                Beyond traditional cybersecurity, I&apos;m actively developing AI-powered tools including RAG agents, N8N automation workflows, and MCP servers to enhance operational efficiency and threat detection capabilities.
+              </p>
             </motion.div>
 
             {/* Certifications Card */}
@@ -100,126 +162,88 @@ export default function AboutPage() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6 }}
-              className="card-elevated sticky top-24"
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="card-holographic p-8"
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-sapphire-50 flex items-center justify-center">
-                  <Award className="h-6 w-6 text-sapphire-600" />
-                </div>
-                <h3 className="text-2xl font-serif font-bold text-steel-900">Certifications</h3>
-              </div>
-              
+              <h3 className="text-2xl font-serif font-bold text-white mb-6 flex items-center gap-3">
+                <Award className="h-7 w-7 text-neon-cyan" />
+                Certifications
+              </h3>
               <ul className="space-y-4">
                 {certifications.map((cert, index) => (
                   <motion.li
-                    key={index}
-                    initial={{ opacity: 0, x: 20 }}
+                    key={cert}
+                    initial={{ opacity: 0, x: 10 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1, duration: 0.5 }}
-                    className="flex items-start gap-3"
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    className="flex items-center gap-3 text-slate-300 border-b border-neon-cyan/20 pb-3"
                   >
-                    <CheckCircle2 className="h-6 w-6 text-accent-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-steel-700 leading-relaxed">{cert}</span>
+                    <span className="text-neon-cyan text-2xl">▸</span>
+                    <span className="text-lg">{cert}</span>
                   </motion.li>
                 ))}
               </ul>
-
-              <div className="mt-8 pt-6 border-t border-steel-200">
-                <Button className="w-full bg-accent-600 hover:bg-accent-700 text-white" asChild>
-                  <Link href="/experience">
-                    View Experience
-                  </Link>
-                </Button>
-              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Skills Grid Section */}
-      <section className="section-pro bg-gradient-to-br from-cyber-50/20 via-white to-sapphire-50/20 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="orb orb-blue w-[400px] h-[400px] top-[20%] right-[-10%]" style={{ animationDelay: '5s' }} />
-        </div>
-        
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            title="Technical Expertise"
-            subtitle="A comprehensive skill set built through years of hands-on experience in cybersecurity operations, development, and leadership"
-          />
+      {/* Skills Grid */}
+      <section className="section-cinematic relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4 text-white">
+              Technical <span className="text-gradient-cyber">Expertise</span>
+            </h2>
+            <div className="accent-bar-neon mx-auto" />
+            <p className="text-lg text-slate-400 mt-6 max-w-2xl mx-auto">
+              Advanced capabilities across security operations, cloud architecture, and AI-powered automation
+            </p>
+          </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {skills.map((skillCategory, categoryIndex) => {
-              const Icon = skillCategory.icon;
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {skillCategories.map((category, index) => {
+              const Icon = category.icon;
               return (
                 <motion.div
-                  key={skillCategory.category}
+                  key={category.title}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
-                  className="card-cinematic"
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  whileHover={{ y: -5 }}
+                  className="card-holographic p-6"
                 >
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-sapphire-100 to-accent-100 flex items-center justify-center">
-                      <Icon className="h-6 w-6 text-sapphire-600" />
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-neon-cyan/20 to-neon-red/20 flex items-center justify-center border border-neon-cyan/30">
+                      <Icon className="h-6 w-6 text-neon-cyan" />
                     </div>
-                    <h3 className="text-xl font-bold text-steel-900">
-                      {skillCategory.category}
+                    <h3 className="text-lg font-bold text-white">
+                      {category.title}
                     </h3>
                   </div>
-                  
-                  <div className="flex flex-wrap gap-2">
-                    {skillCategory.items.map((skill, skillIndex) => (
-                      <motion.span
+                  <ul className="space-y-2">
+                    {category.skills.map((skill) => (
+                      <li
                         key={skill}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: (categoryIndex * 0.1) + (skillIndex * 0.05), duration: 0.3 }}
-                        className="px-4 py-2 glass hover:bg-white/90 text-steel-700 rounded-full text-sm font-medium transition-all cursor-default hover:scale-105"
+                        className="text-slate-400 text-sm flex items-start gap-2"
                       >
-                        {skill}
-                      </motion.span>
+                        <span className="text-neon-cyan mt-1">▸</span>
+                        <span>{skill}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </motion.div>
               );
             })}
           </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="section-pro bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-steel-900 mb-6">
-              Let&apos;s Work Together
-            </h2>
-            <p className="text-xl text-steel-600 mb-8 max-w-2xl mx-auto">
-              Interested in collaborating or discussing cybersecurity strategies? I&apos;d love to connect.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-accent-600 hover:bg-accent-700 text-white" asChild>
-                <Link href="/contact">
-                  Get in Touch
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" className="border-2 border-steel-300 hover:border-accent-500 hover:bg-accent-50/50" asChild>
-                <Link href="/projects">
-                  View Projects
-                </Link>
-              </Button>
-            </div>
-          </motion.div>
         </div>
       </section>
     </div>

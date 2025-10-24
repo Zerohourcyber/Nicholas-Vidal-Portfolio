@@ -48,6 +48,18 @@ export default function ChatWidget() {
     setIsLoading(true);
 
     try {
+      const sessionId = localStorage.getItem("chatSessionId") || Date.now().toString();
+      if (!localStorage.getItem("chatSessionId")) {
+        localStorage.setItem("chatSessionId", sessionId);
+      }
+
+      const payload = {
+        chatInput: input,
+        sessionId: sessionId,
+      };
+
+      console.log("📤 Sending to N8N:", payload);
+
       const response = await fetch(
         "https://n8n.roomform.net/webhook/a8e3879e-f6fa-4211-8f56-85a2e5832d40/chat",
         {
@@ -55,30 +67,53 @@ export default function ChatWidget() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            message: input,
-            sessionId: localStorage.getItem("chatSessionId") || Date.now().toString(),
-          }),
+          body: JSON.stringify(payload),
         }
       );
 
-      if (!localStorage.getItem("chatSessionId")) {
-        localStorage.setItem("chatSessionId", Date.now().toString());
+      console.log("📥 N8N Response Status:", response.status);
+      
+      const responseText = await response.text();
+      console.log("📥 N8N Response Text:", responseText);
+
+      let data;
+      try {
+        data = JSON.parse(responseText);
+        console.log("📥 N8N Response JSON:", data);
+      } catch {
+        // If response is not JSON, treat it as plain text
+        data = { message: responseText };
       }
 
-      const data = await response.json();
-      
-      console.log("N8N Response:", data); // Debug log
+      let assistantContent = "I'm sorry, I couldn't process that request.";
+
+      // Try multiple possible response formats from N8N
+      if (data.output) {
+        assistantContent = data.output;
+      } else if (data.response) {
+        assistantContent = data.response;
+      } else if (data.message && !data.message.includes("Error in workflow")) {
+        assistantContent = data.message;
+      } else if (data.text) {
+        assistantContent = data.text;
+      } else if (data.reply) {
+        assistantContent = data.reply;
+      } else if (typeof data === "string" && !data.includes("Error in workflow")) {
+        assistantContent = data;
+      } else if (data.message === "Error in workflow") {
+        assistantContent = "🔧 The AI is currently being configured. Please reach out directly at Vidal@NicholasVidal.tech";
+        console.error("❌ N8N Workflow Error - Check your N8N workflow configuration");
+      }
 
       const assistantMessage: Message = {
         role: "assistant",
-        content: data.output || data.response || data.message || data.error || "I'm sorry, I couldn't process that request.",
+        content: assistantContent,
         timestamp: new Date(),
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
-      console.error("Chat error:", error);
+      console.error("❌ Chat error:", error);
       const errorMessage: Message = {
         role: "assistant",
         content: "I apologize, but I'm having trouble connecting right now. Please try again later or contact Nicholas directly at Vidal@NicholasVidal.tech",
@@ -95,31 +130,29 @@ export default function ChatWidget() {
       {/* Floating Chat Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-gradient-to-br from-sapphire-500 to-accent-500 text-white shadow-glow-accent flex items-center justify-center hover:scale-110 transition-transform"
+        className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-gradient-to-br from-neon-cyan to-neon-red text-white shadow-neon-cyan hover:shadow-glow-cyan flex items-center justify-center hover:scale-110 transition-all"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 1, duration: 0.5 }}
+        aria-label="Open chat"
       >
         <AnimatePresence mode="wait">
           {isOpen ? (
             <motion.div
               key="close"
-              initial={{ rotate: -180, opacity: 0 }}
+              initial={{ rotate: -90, opacity: 0 }}
               animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: 180, opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              exit={{ rotate: 90, opacity: 0 }}
+              transition={{ duration: 0.2 }}
             >
               <X className="h-7 w-7" />
             </motion.div>
           ) : (
             <motion.div
-              key="chat"
-              initial={{ rotate: 180, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: -180, opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              key="open"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
             >
               <MessageCircle className="h-7 w-7" />
             </motion.div>
@@ -134,125 +167,124 @@ export default function ChatWidget() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ duration: 0.3 }}
-            className="fixed bottom-24 right-6 z-50 w-[400px] h-[600px] max-w-[calc(100vw-3rem)] max-h-[calc(100vh-8rem)]"
+            transition={{ duration: 0.2 }}
+            className="fixed bottom-24 right-6 z-50 w-96 h-[500px] card-holographic overflow-hidden flex flex-col"
           >
-            <div className="glass rounded-2xl shadow-depth overflow-hidden flex flex-col h-full border border-white/20">
-              {/* Header */}
-              <div className="bg-gradient-to-r from-sapphire-600 to-accent-600 text-white p-4 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                  <Bot className="h-6 w-6" />
+            {/* Header */}
+            <div className="bg-gradient-to-r from-neon-cyan to-neon-red p-4 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-lg flex items-center justify-center">
+                  <Bot className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-bold">Nicholas James Vidal</h3>
-                  <p className="text-xs text-white/80">AI Assistant - Ask me anything!</p>
+                  <h3 className="font-bold text-white">AI Assistant</h3>
+                  <p className="text-xs text-white/80">Nicholas James Vidal</p>
                 </div>
               </div>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="text-white/80 hover:text-white transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
 
-              {/* Messages */}
-              <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-white/50">
-                {messages.map((message, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className={`flex gap-3 ${
-                      message.role === "user" ? "flex-row-reverse" : "flex-row"
-                    }`}
-                  >
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-space-300/50">
+              {messages.map((message, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                >
+                  <div className="flex items-start gap-2 max-w-[80%]">
+                    {message.role === "assistant" && (
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-neon-cyan to-neon-blue flex items-center justify-center flex-shrink-0 shadow-glow-cyan">
+                        <Bot className="h-5 w-5 text-white" />
+                      </div>
+                    )}
                     <div
-                      className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                      className={`rounded-2xl px-4 py-2 ${
                         message.role === "user"
-                          ? "bg-gradient-to-br from-accent-500 to-sunset-500"
-                          : "bg-gradient-to-br from-sapphire-500 to-cyber-500"
+                          ? "bg-gradient-to-br from-neon-red to-neon-pink text-white shadow-glow-red"
+                          : "bg-space-200/80 text-slate-200 border border-neon-cyan/30"
                       }`}
                     >
-                      {message.role === "user" ? (
-                        <User className="h-4 w-4 text-white" />
-                      ) : (
-                        <Bot className="h-4 w-4 text-white" />
-                      )}
-                    </div>
-                    <div
-                      className={`max-w-[75%] rounded-2xl px-4 py-2 ${
-                        message.role === "user"
-                          ? "bg-gradient-to-br from-accent-500 to-sunset-500 text-white"
-                          : "glass text-steel-900"
-                      }`}
-                    >
-                      <p className="text-sm leading-relaxed">{message.content}</p>
-                      <p
-                        className={`text-xs mt-1 ${
-                          message.role === "user" ? "text-white/70" : "text-steel-500"
-                        }`}
-                      >
+                      <p className="text-sm">{message.content}</p>
+                      <p className="text-xs mt-1 opacity-60">
                         {message.timestamp.toLocaleTimeString([], {
                           hour: "2-digit",
                           minute: "2-digit",
                         })}
                       </p>
                     </div>
-                  </motion.div>
-                ))}
-                {isLoading && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="flex gap-3"
-                  >
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sapphire-500 to-cyber-500 flex items-center justify-center">
-                      <Bot className="h-4 w-4 text-white" />
+                    {message.role === "user" && (
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-neon-purple to-neon-pink flex items-center justify-center flex-shrink-0 shadow-glow-red">
+                        <User className="h-5 w-5 text-white" />
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+              {isLoading && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="flex justify-start"
+                >
+                  <div className="flex items-start gap-2">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-neon-cyan to-neon-blue flex items-center justify-center shadow-glow-cyan">
+                      <Bot className="h-5 w-5 text-white" />
                     </div>
-                    <div className="glass rounded-2xl px-4 py-3">
+                    <div className="bg-space-200/80 border border-neon-cyan/30 rounded-2xl px-4 py-2">
                       <div className="flex gap-1">
                         <motion.div
-                          className="w-2 h-2 rounded-full bg-sapphire-500"
-                          animate={{ y: [0, -8, 0] }}
-                          transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
+                          animate={{ opacity: [0.4, 1, 0.4] }}
+                          transition={{ duration: 1, repeat: Infinity, delay: 0 }}
+                          className="w-2 h-2 rounded-full bg-neon-cyan"
                         />
                         <motion.div
-                          className="w-2 h-2 rounded-full bg-sapphire-500"
-                          animate={{ y: [0, -8, 0] }}
-                          transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
+                          animate={{ opacity: [0.4, 1, 0.4] }}
+                          transition={{ duration: 1, repeat: Infinity, delay: 0.2 }}
+                          className="w-2 h-2 rounded-full bg-neon-cyan"
                         />
                         <motion.div
-                          className="w-2 h-2 rounded-full bg-sapphire-500"
-                          animate={{ y: [0, -8, 0] }}
-                          transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }}
+                          animate={{ opacity: [0.4, 1, 0.4] }}
+                          transition={{ duration: 1, repeat: Infinity, delay: 0.4 }}
+                          className="w-2 h-2 rounded-full bg-neon-cyan"
                         />
                       </div>
                     </div>
-                  </motion.div>
-                )}
-                <div ref={messagesEndRef} />
-              </div>
-
-              {/* Input */}
-              <form onSubmit={handleSubmit} className="p-4 bg-white/80 border-t border-steel-200/50">
-                <div className="flex gap-2">
-                  <Input
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    placeholder="Type your message..."
-                    disabled={isLoading}
-                    className="flex-1 glass border-steel-300 focus:border-sapphire-500 focus:ring-sapphire-500"
-                  />
-                  <Button
-                    type="submit"
-                    disabled={isLoading || !input.trim()}
-                    className="bg-gradient-to-r from-sapphire-500 to-accent-500 hover:from-sapphire-600 hover:to-accent-600 text-white px-4"
-                  >
-                    <Send className="h-5 w-5" />
-                  </Button>
-                </div>
-              </form>
+                  </div>
+                </motion.div>
+              )}
+              <div ref={messagesEndRef} />
             </div>
+
+            {/* Input */}
+            <form onSubmit={handleSubmit} className="p-4 bg-space-200/80 border-t border-neon-cyan/30">
+              <div className="flex gap-2">
+                <Input
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Ask about Nicholas..."
+                  className="flex-1 bg-space-300/50 border-neon-cyan/30 text-white placeholder-slate-500 focus:border-neon-cyan focus:ring-neon-cyan/50"
+                  disabled={isLoading}
+                />
+                <Button
+                  type="submit"
+                  disabled={isLoading || !input.trim()}
+                  className="bg-gradient-to-r from-neon-cyan to-neon-blue hover:from-neon-blue hover:to-neon-cyan text-white shadow-glow-cyan disabled:opacity-50"
+                >
+                  <Send className="h-5 w-5" />
+                </Button>
+              </div>
+            </form>
           </motion.div>
         )}
       </AnimatePresence>
     </>
   );
 }
-
