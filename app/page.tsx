@@ -198,7 +198,7 @@ export default function HomePage() {
                 {/* Profile Image Container with Holographic Border */}
                 <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-neon-cyan/40 shadow-neon-cyan neon-border">
                   <Image
-                    src="/profile.jpg.jfif"
+                    src="/nick 4.jpg"
                     alt="Nicholas James Vidal"
                     fill
                     className="object-cover object-center"
