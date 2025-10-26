@@ -7,13 +7,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
+import { CheckCircle2 } from "lucide-react";
 
 const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "nick@n1x.io",
-    link: "mailto:nick@n1x.io",
+    value: "zerohourcyber@gmail.com",
+    link: "mailto:zerohourcyber@gmail.com",
   },
   {
     icon: Phone,
@@ -48,6 +49,8 @@ export default function ContactPage() {
     company: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -58,10 +61,49 @@ export default function ContactPage() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Add your form submission logic here
+    setIsSubmitting(true);
+
+    try {
+      // Send to n8n webhook for automation
+      const response = await fetch('https://n8n.roomform.net/webhook/contact-form-portfolio', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          message: formData.message,
+          timestamp: new Date().toISOString(),
+          source: 'Nicholas Vidal Portfolio'
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
+      setIsSubmitting(false);
+      setIsSuccess(true);
+
+      // Reset form after 5 seconds
+      setTimeout(() => {
+        setIsSuccess(false);
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          message: "",
+        });
+      }, 5000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setIsSubmitting(false);
+      alert('There was an error sending your message. Please email me directly at zerohourcyber@gmail.com');
+    }
   };
 
   return (
@@ -160,10 +202,24 @@ export default function ContactPage() {
               transition={{ duration: 0.6 }}
               className="card-holographic p-8 md:p-10"
             >
-              <h2 className="text-3xl font-serif font-bold text-white mb-6">
-                Send a Message
-              </h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              {isSuccess ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center py-12"
+                >
+                  <CheckCircle2 className="h-16 w-16 text-neon-cyan mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
+                  <p className="text-slate-300">
+                    Thank you for reaching out. I&apos;ll get back to you soon!
+                  </p>
+                </motion.div>
+              ) : (
+                <>
+                  <h2 className="text-3xl font-serif font-bold text-white mb-6">
+                    Send a Message
+                  </h2>
+                  <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <Label htmlFor="name" className="text-slate-300 font-semibold">Name</Label>
                   <Input
@@ -215,9 +271,25 @@ export default function ContactPage() {
                   type="submit"
                   size="lg"
                   className="w-full btn-neon-red text-white font-bold"
+                  disabled={isSubmitting}
                 >
-                  <Send className="mr-2 h-5 w-5" />
-                  Send Message
+                  {isSubmitting ? (
+                    <>
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        className="mr-2"
+                      >
+                        <Send className="h-5 w-5" />
+                      </motion.div>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="mr-2 h-5 w-5" />
+                      Send Message
+                    </>
+                  )}
                 </Button>
               </form>
 
@@ -242,6 +314,8 @@ export default function ContactPage() {
                   })}
                 </div>
               </div>
+                </>
+              )}
             </motion.div>
           </div>
         </div>
