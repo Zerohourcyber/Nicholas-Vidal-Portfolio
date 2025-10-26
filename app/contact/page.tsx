@@ -67,7 +67,7 @@ export default function ContactPage() {
 
     try {
       // Send to n8n webhook for automation
-      const response = await fetch('https://n8n.roomform.net/webhook/contact-form-portfolio', {
+      const response = await fetch('https://n8n.roomform.net/webhook/resume-contact-form', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ export default function ContactPage() {
           company: formData.company,
           message: formData.message,
           timestamp: new Date().toISOString(),
-          source: 'Nicholas Vidal Portfolio'
+          source: '"Nicholas-Vidal-Portfolio'
         }),
       });
 
