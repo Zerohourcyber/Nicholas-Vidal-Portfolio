@@ -10,13 +10,13 @@ const projects = [
   {
     title: "AI-Powered Live Resume Platform",
     description:
-      "Built a flagship AI-powered personal portfolio and live resume website using Next.js 14, featuring modern professional design, Framer Motion animations, and hooks for future RAG chatbot integration.",
+      "Built a flagship AI-powered personal portfolio and live resume website using Next.js 16, featuring modern professional design, Framer Motion animations, and hooks for future RAG chatbot integration.",
     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop&q=80",
-    tags: ["Next.js 14", "TypeScript", "Tailwind CSS", "Framer Motion", "shadcn/ui"],
+    tags: ["Next.js 16", "TypeScript", "Tailwind CSS", "Framer Motion", "shadcn/ui"],
     highlights: [
       "Cinematic AI-inspired design with animated glow effects",
       "Integrated RAG chatbot for interactive career showcase",
-      "SEO-optimized with Next.js 14 App Router and SSR",
+      "SEO-optimized with Next.js 16 App Router and SSR",
     ],
     demoUrl: "#",
     githubUrl: "#",

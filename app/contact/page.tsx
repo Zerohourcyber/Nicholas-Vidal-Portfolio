@@ -19,7 +19,7 @@ const contactInfo = [
   {
     icon: Phone,
     label: "Phone",
-    value: "(123) 456-7890",
+    value: "(618) 799-3850",
     link: "tel:+11234567890",
   },
   {
@@ -321,28 +321,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Calendly Embed Section */}
-      <section className="section-cinematic relative z-10">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className="text-3xl font-serif font-bold text-white mb-6">
-              Or Schedule a Direct Call
-            </h2>
-            <p className="text-lg text-slate-300 mb-8">
-              Book a convenient time directly on my calendar to discuss your cybersecurity needs.
-            </p>
-            {/* Placeholder for Calendly embed */}
-            <div className="card-holographic h-96 flex items-center justify-center">
-              <p className="text-slate-400">Calendly Embed Placeholder</p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+
     </div>
   );
 }

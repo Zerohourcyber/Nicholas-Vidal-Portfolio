@@ -10,15 +10,15 @@ const footerLinks = [
 ];
 
 const socialLinks = [
-  { name: "GitHub", href: "https://github.com/NicholasV", icon: Github },
+  { name: "GitHub", href: "https://github.com/Zerohourcyber", icon: Github },
   { name: "LinkedIn", href: "https://linkedin.com/in/nicholasvidal", icon: Linkedin },
-  { name: "Email", href: "mailto:nick@n1x.io", icon: Mail },
+  { name: "Email", href: "https://nicholasvidal.zerohourcyber.com/contact", icon: Mail },
 ];
 
 const siteConfig = {
   contact: {
-    email: "nick@n1x.io",
-    phone: "(123) 456-7890",
+    email: "zerohourcyber@gmail.com",
+    phone: "(618) 799-3850",
     location: "United States",
   },
 };
