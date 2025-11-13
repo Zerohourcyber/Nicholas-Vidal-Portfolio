@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Github, Linkedin, Mail, MapPin, Phone, Sparkles } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin, Sparkles } from "lucide-react";
 
 const footerLinks = [
   { href: "/", label: "Home" },
@@ -18,7 +18,6 @@ const socialLinks = [
 const siteConfig = {
   contact: {
     email: "zerohourcyber@gmail.com",
-    phone: "(618) 799-3850",
     location: "United States",
   },
 };
@@ -94,15 +93,6 @@ export default function Footer() {
                 >
                   <Mail className="h-5 w-5 mt-0.5 flex-shrink-0 text-neon-cyan/70 group-hover:text-neon-cyan" />
                   <span>{siteConfig.contact.email}</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`tel:${siteConfig.contact.phone.replace(/[^0-9+]/g, "")}`}
-                  className="flex items-start gap-3 text-slate-400 hover:text-neon-cyan transition-colors text-sm group"
-                >
-                  <Phone className="h-5 w-5 mt-0.5 flex-shrink-0 text-neon-cyan/70 group-hover:text-neon-cyan" />
-                  <span>{siteConfig.contact.phone}</span>
                 </a>
               </li>
               <li className="flex items-start gap-3 text-slate-400 text-sm">
