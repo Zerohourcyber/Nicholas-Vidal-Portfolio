@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send, Linkedin, Github } from "lucide-react";
+import { Mail, MapPin, Send, Linkedin, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,12 +15,6 @@ const contactInfo = [
     label: "Email",
     value: "zerohourcyber@gmail.com",
     link: "mailto:zerohourcyber@gmail.com",
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "(618) 799-3850",
-    link: "tel:+11234567890",
   },
   {
     icon: MapPin,
